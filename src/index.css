@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #E9ECEE !important;
+  width: 100%;
+  height: 92vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
+  column-gap: 118px !important;
+}
+ .ant-tabs-tab-btn {
+  color: #9B9B9B !important;
+  text-shadow: 0 0 0.25px currentcolor;
+  font-size: 25px !important;
+  font-weight: 600 !important;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: #333333 !important;
+  text-shadow: 0 0 0.25px currentcolor;
+  font-size: 25px !important;
+  font-weight: 600 !important;
+}
+.vendor_formcontrol__TYF7x {
+  font-size: 13px;
+  color: #807676 !important;
+}
+.vendor_formcontrol__TYF7x option {
+  color: #7a7373 !important;
+}
+.progress-bar {
+  background-color: #0EA130;
+}
+.ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+  margin: 0 0 0px 0 !important;
+}
+.ant-message{
+  margin-top:60px !important
+}

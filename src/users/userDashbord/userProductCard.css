@@ -1,0 +1,40 @@
+.slick-next, .slick-prev{
+    background-color: #2874f0 !important;
+    width: 2rem;
+    height: 5rem;
+}
+.slick-prev:before {
+    content: '\2039';
+    font-size: 4rem !important;
+    font-weight: bold !important;
+}
+.slick-next:before, [dir=rtl] .slick-prev:before {
+    content: '\203A';
+    font-size: 4rem !important ;
+    font-weight: bold !important;
+    
+}
+.slick-arrow  {
+    display: flex !important;
+    justify-content: center !important;
+}
+.slick-prev{
+    border-radius: 0 5px  5px 0!important;
+}
+.slick-next{
+    border-radius: 5px 0  0 5px!important;
+}
+.deals-cards{
+    margin-left: 28px;
+    margin-right: 28px;
+}
+.zoom {
+    transition: transform .2s;
+    margin: 0 auto;
+  }
+  
+  .zoom:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.5); 
+  }
