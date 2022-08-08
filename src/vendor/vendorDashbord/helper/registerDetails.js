@@ -1,25 +1,40 @@
 import style from './vendor.module.css'
-import { useState,useEffect } from "react";
-import { useForm } from "react-hook-form"
-import { incrementStaper } from '../../../redux/reducers/registerReducer';
-import { useDispatch } from 'react-redux';
+import { useState , useEffect} from "react";
+import { incrementStaper, registerDetails } from '../../../redux/reducers/registerReducer';
+import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
 function RegisterDetails() {
-    const { register, handleSubmit } = useForm();
-    const [data, setData] = useState("");
+    const formData= useSelector(state => state.register)
+
+    const [registerData, setRegisterData] = useState({});
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        if (data.length > 5) {
-            const jsonFormData = JSON.parse(data);
-            if (Object.keys(jsonFormData)?.length === 5 && jsonFormData?.mobile?.length === 10) {
-                dispatch(incrementStaper())
-            } else {
-                message.error('Mobile number must be 10 digit!');
-            }
+    const HandleSubmit = (e) => {
+        e.preventDefault()
+        if (registerData?.length !== 5 && registerData?.mobile?.length !== 10) {
+            message.error('Mobile number must be 10 digit!');
+        } else {
+            dispatch(registerDetails(registerData))
+            dispatch(incrementStaper())
         }
-    },[data])
+    }
+    useEffect(()=>{
+        if(formData.first_name && formData.last_name && formData.mobile && formData.email && formData.password){
+            setRegisterData({
+                first_name: formData.first_name,
+                last_name: formData.last_name,
+                mobile: formData.mobile,
+                email: formData.email,
+                password: formData.password
+            })
+        }
+    },[])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setRegisterData({ ...registerData, [name]: value })
+    }
     return (
         <div>
             <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
@@ -27,35 +42,35 @@ function RegisterDetails() {
                     <div class="modal-body  p-0">
                         <div class="row justify-content-center">
                             <div class="col">
-                                <div class="card-body pt-0">
+                                <div class="">
                                     <div class="row justify-content-center ">
-                                        <form class="col-sm-8 col px-sm-0 px-4" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+                                        <form class="col-sm-8 col px-sm-0 px-4" >
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>First Name</p>
-                                                <input {...register("first_name")} class={`${style.formcontrol} form-control`} type="text"  required />
+                                                <input onChange={handleChange} defaultValue={formData?.first_name} class={`${style.formcontrol} form-control`} name='first_name' type="text" required />
                                             </div>
 
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Last Name</p>
-                                                <input {...register("last_name")} class={`${style.formcontrol} form-control`} type="text"  required />
+                                                <input onChange={handleChange} defaultValue={formData?.last_name} class={`${style.formcontrol} form-control`} name='last_name' type="text" required />
                                             </div>
                                             <div> <p className={`${style.vendorCardLable}`}>Mobile Number</p>
-                                                <input {...register("mobile")} class={`${style.formcontrol} form-control`} type="text"  required />
+                                                <input onChange={handleChange} defaultValue={formData?.mobile} class={`${style.formcontrol} form-control`} name='mobile' type="text" required />
                                             </div>
 
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Email</p>
-                                                <input {...register("email")} class={`${style.formcontrol} form-control`} type="email" required />
+                                                <input onChange={handleChange} defaultValue={formData?.email} class={`${style.formcontrol} form-control`} name='email' type="text" required />
                                             </div>
 
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Password</p>
-                                                <input {...register("password")} class={`${style.formcontrol} form-control`} type="password" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
+                                                <input onChange={handleChange} defaultValue={formData?.password} class={`${style.formcontrol} form-control`} type="password" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
                                             </div>
 
                                             <div class="row  mt-4 ">
                                                 <div class="col d-flex justify-content-center">
-                                                    <button type="submit" class={`${style.authsubmitted} btn btn-primary  btn-block`}>
+                                                    <button onClick={HandleSubmit} type="submit" class={`${style.authsubmitted} btn btn-primary  btn-block`}>
                                                         Next<i class="fa-solid fa-arrow-right-long ps-2"></i>
                                                     </button>
                                                 </div>

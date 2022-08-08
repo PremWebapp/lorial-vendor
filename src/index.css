@@ -14,34 +14,123 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
-  column-gap: 118px !important;
+
+.ant-tabs>.ant-tabs-nav .ant-tabs-nav-list,
+.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
+  column-gap: 160px !important;
 }
- .ant-tabs-tab-btn {
+
+.ant-tabs-tab-btn {
   color: #9B9B9B !important;
   text-shadow: 0 0 0.25px currentcolor;
   font-size: 25px !important;
   font-weight: 600 !important;
 }
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #333333 !important;
   text-shadow: 0 0 0.25px currentcolor;
   font-size: 25px !important;
   font-weight: 600 !important;
 }
+
 .vendor_formcontrol__TYF7x {
   font-size: 13px;
   color: #807676 !important;
 }
+
 .vendor_formcontrol__TYF7x option {
   color: #7a7373 !important;
 }
+
 .progress-bar {
   background-color: #0EA130;
 }
-.ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+
+.ant-tabs-top>.ant-tabs-nav,
+.ant-tabs-bottom>.ant-tabs-nav,
+.ant-tabs-top>div>.ant-tabs-nav,
+.ant-tabs-bottom>div>.ant-tabs-nav {
   margin: 0 0 0px 0 !important;
 }
-.ant-message{
-  margin-top:60px !important
+
+.ant-message {
+  margin-top: 60px !important
+}
+
+.modal-content {
+  background-color: #ebf0f3;
+}
+
+
+.box-2 .box-inner-2 input.form-control {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.box-2 .box-inner-2 .inputWithIcon {
+  position: relative;
+}
+
+.box-2 .box-inner-2 .inputWithIcon span {
+  position: absolute;
+  left: 15px;
+  top: 8px;
+}
+
+.box-2 .box-inner-2 .inputWithcheck {
+  position: relative;
+}
+
+.box-2 .box-inner-2 .inputWithcheck span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+  font-size: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 15px;
+  top: 6px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: none;
+  outline: none;
+  border: 1px solid #7700ff;
+}
+
+.border:focus-within {
+  border: 1px solid #7700ff !important;
+}
+
+.box-2 .card-atm .form-control {
+  border: none;
+  box-shadow: none;
+}
+
+.form-select {
+  border-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+
+.address .form-control.zip {
+  border-radius: 0;
+  border-bottom-left-radius: 10px;
+
+}
+
+.address .form-control.state {
+  border-radius: 0;
+  border-bottom-right-radius: 10px;
+
+}
+#product-tab{
+  column-gap: 0px !important;
 }

@@ -32,11 +32,11 @@ function AddProduct() {
     return (
         <>
             <div className={`${style.completedboxCard}`}>
-                <div className={`${style.completedbox} mx-5 `}>
+                <div className={`me-3 `}>
                     <div className={`${style.completedboxBorder}`}>
                         <div className='row mx-2 pt-3'>
                             <div className={`${style.completedboxlable} col fw-bold`}>
-                                Add Product for sell
+                                 Product Form
                             </div>
 
                             <div className="border border-secondary  mt-3"></div>
@@ -44,7 +44,7 @@ function AddProduct() {
                         </div>
                         <div className="card-group p-3 gap-4">
                             <div className='container'>
-                                <div className='row py-4 '>
+                                <div className='row  '>
                                     <div className='col-md-6 py-1' >
                                         <p className={`${style.vendorCardLable}`}>Product Name</p>
                                         <div class="col-sm-10">

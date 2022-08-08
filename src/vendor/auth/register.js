@@ -6,7 +6,6 @@ import RegisterPickuplocation from '../vendorDashbord/helper/registerPickuplocat
 
 function Register() {
     const { staper } = useSelector(state => state.register)
-    console.log('staper', staper)
     return (
         <>
             {staper === 1 && <RegisterDetails />}

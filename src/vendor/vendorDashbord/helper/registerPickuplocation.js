@@ -1,30 +1,39 @@
 import React from 'react'
 import style from './vendor.module.css'
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form"
-import {  decrementStaper } from '../../../redux/reducers/registerReducer';
-import { useDispatch } from 'react-redux';
-import { message } from 'antd';
+import {  addPickupLocation, decrementStaper, registrationFun } from '../../../redux/reducers/registerReducer';
+import { useDispatch , useSelector} from 'react-redux';
+import { message, Spin  } from 'antd';
 
 function RegisterPickuplocation() {
-    const { register, handleSubmit } = useForm();
-    const [data, setData] = useState("");
+    const {pickup_location}= useSelector(state => state.register)
+    const totalData =useSelector(state => state.register)
+
+    const [pickupDetails, setPickupDetails] = useState({});
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        if (data.length > 5) {
-            const jsonFormData = JSON.parse(data);
-            if (Object.keys(jsonFormData).length === 4 && jsonFormData?.pickup_pincode?.length ===6 ) {
-            } else {
-                message.error('Pincode must be 6 digit!');
-            }
+    const HandleSubmit = (e) => {
+        e.preventDefault()
+        if (Object.keys(pickupDetails).length === 4 && pickupDetails?.pickup_pincode?.length ===6 ) {
+            dispatch(addPickupLocation(pickupDetails))
+            dispatch(registrationFun(totalData))
+        } else {
+            message.error('Pincode must be 6 digit!');
         }
-    },[data])
-
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setPickupDetails({ ...pickupDetails, [name]: value })
+    }
     const handelBackSubmit = (e) => {
         e.preventDefault()
         dispatch(decrementStaper())
     }
+    useEffect(()=>{
+        if(pickup_location){
+            setPickupDetails(pickup_location)
+        }
+    },[])
     return (
         <div>
             <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
@@ -32,24 +41,23 @@ function RegisterPickuplocation() {
                     <div class="modal-body  p-0">
                         <div class="row justify-content-center">
                             <div class="col">
-                                <div class="card-body pt-0">
                                     <div class="row justify-content-center ">
-                                        <form class="col-sm-8 col px-sm-0 px-4" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+                                        <form class="col-sm-8 col px-sm-0 px-4">
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Address</p>
-                                                <input {...register('address')} class={`${style.formcontrol} form-control`} type="text" required />
+                                                <input onChange={handleChange} defaultValue={pickup_location?.address}  class={`${style.formcontrol} form-control`} name='address' type="text" required />
                                             </div>
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>State</p>
-                                                <input {...register('pickup_state')} class={`${style.formcontrol} form-control`} type="text" required />
+                                                <input onChange={handleChange} defaultValue={pickup_location?.pickup_state}  class={`${style.formcontrol} form-control`} name='pickup_state' type="text" required />
                                             </div>
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>City</p>
-                                                <input {...register('pickup_city')} class={`${style.formcontrol} form-control`} type="text" required />
+                                                <input onChange={handleChange} defaultValue={pickup_location?.pickup_city}  class={`${style.formcontrol} form-control`} name='pickup_city' type="text" required />
                                             </div>
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Pincode</p>
-                                                <input {...register('pickup_pincode')} class={`${style.formcontrol} form-control`} type="text" required />
+                                                <input onChange={handleChange} defaultValue={pickup_location?.pickup_pincode}  class={`${style.formcontrol} form-control`} name='pickup_pincode' type="text" required />
                                             </div>
 
                                             <div className="col d-flex  mt-4">
@@ -57,13 +65,12 @@ function RegisterPickuplocation() {
                                                     <i class="fa-solid fa-arrow-left-long pe-2"></i>Back
                                                 </button>
                                                 <div className='col d-flex justify-content-end'>
-                                                    <button type="submit" className={`${style.authsubmitted} btn btn-primary  btn-block`} >
-                                                        Submit
+                                                    <button onClick={HandleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} >
+                                                      {totalData.isLoading ? <Spin /> :  'Submit'}
                                                     </button>
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
 
                                 </div>
                             </div>

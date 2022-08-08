@@ -1,7 +1,22 @@
-import React from 'react'
+import React,{useState} from 'react'
 import style from '../vendorDashbord/helper/vendor.module.css'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loginFun } from '../../redux/reducers/loginReducer'
+import { message } from 'antd'
+
 function Login() {
+    const [mobile, setLogin] = useState('')
+    const dispatch =useDispatch()
+
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        if(mobile.length==10)dispatch(loginFun({mobile:mobile}))
+        else message.error('Mobile must be at least 10 characters long for login!')
+        
+    }
+    const handleOTPSubmit=()=>{}
+    
     return (
         <>
             <div className="modal-dialog  modal-dialog-centered justify-content-center " role="document">
@@ -9,12 +24,12 @@ function Login() {
                     <div className="modal-body  p-0">
                         <div className="row justify-content-center">
                             <div className="col">
-                                <div className="card-body pt-0">
-                                    <div className="row justify-content-center ">
-                                        <div className="col-sm-8 col px-sm-0 px-4">
-
-                                            <div> <p className={`${style.vendorCardLable}`}>Mobile Number</p>
-                                                <input className={`${style.formcontrol} form-control`} type="number" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" />
+                                <div className="">
+                                    <form className="row justify-content-center ">
+                                        <div className="col-sm-8 col ">
+                                            <div>
+                                                <p className={`${style.vendorCardLable}`}>Mobile Number</p>
+                                                <input onChange={(e)=>setLogin(e.target.value)} className={`${style.formcontrol} form-control `} type="number" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
                                             </div>
 
                                             <div className="row align-items-center mt-4 mb-5">
@@ -29,7 +44,7 @@ function Login() {
                                             </div>
                                             <div className="row">
                                                 <div className="col d-flex  d-flex">
-                                                    <button type="button" className={`${style.authsubmitted} btn btn-primary  btn-block`} data-bs-toggle="modal" data-bs-target="#registerModel">
+                                                    <button onClick={handleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} data-bs-toggle="modal" data-bs-target="#registerModel">
                                                         Login
                                                     </button>
                                                     <div className='col d-flex justify-content-end'>
@@ -39,7 +54,7 @@ function Login() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -64,19 +79,19 @@ function Login() {
                                 <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
                                 <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
                             </div>
-                            <div className="row mx-5">
+                            {/* <div className="row mx-5">
                                 <div className="col d-flex">
                                     <span className='fw-bold text-danger mky-auto'>29 sec</span>
                                     <div className='col  d-flex justify-content-end'>
                                         <span className='fw-bold text-danger mky-auto'>Resend OTP?</span>
                                     </div>
                                 </div>
+                            </div> */}
+                            <div className='d-flex justify-content-center'>
+                                <button type="button" class={`${style.authsubmitted} btn btn-primary  btn-block text-center mt-4`}>
+                                    Submit
+                                </button>
                             </div>
-                          <div className='d-flex justify-content-center'>
-                          <button type="button" class={`${style.authsubmitted} btn btn-primary  btn-block text-center mt-4`}>
-                               Submit
-                            </button>
-                          </div>
                         </div>
 
                     </div>

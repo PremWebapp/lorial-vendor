@@ -18,8 +18,8 @@ function UserSignin() {
                                         </div>
                                     </div>
                                     <div className="card-body pt-0">
-                                        <div className="row justify-content-center pb-sm-5 pb-3">
-                                            <div className="col-sm-8 col px-sm-0 px-4 justify-content-center">
+                                        <div className="row justify-content-center ">
+                                            <div className="col-sm-8 col px-sm-0 justify-content-center">
                                                 <img className='mx-auto user-signup-img1 d-flex justify-content-center card-title mt-sm-5 mt-3 mb-sm-5 mb-3 text-center' src='https://webapp.world/assets/images/logo.png' />
                                                 <div className="row">
                                                     <div className="col">
