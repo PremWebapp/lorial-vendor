@@ -11,14 +11,14 @@ function VendorRoute() {
     return (
         <>
             <SideBar />
-           <div style={{marginLeft:'15.5vw'}}>
-           <Routes>
-                <Route exact path="/" element={<VendorDashbord />} />
-                <Route exact path="/category" element={<SellingCategory />} />
-                <Route exact path="/product" element={<Product  />} />
-                <Route exact path="/profile-completed-details" element={<ProfileCompletedDetails />} />
-            </Routes>
-           </div>
+            <div style={{ marginLeft: '15.5vw' }}>
+                <Routes>
+                    <Route exact path="/" element={<VendorDashbord />} />
+                    <Route exact path="/product" element={<Product />} />
+                    <Route exact path="/category" element={<SellingCategory />} />
+                    <Route exact path="/profile-completed-details" element={<ProfileCompletedDetails />} />
+                </Routes>
+            </div>
         </>
     )
 }

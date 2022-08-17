@@ -5,8 +5,8 @@ import { message } from 'antd'
 const initialState = {
     development: 'http://localhost:8000',
     isLoading: false,
-    error: '',
-    user: []
+    user: {},
+    token: null,
 }
 
 export const loginFun = createAsyncThunk(
@@ -16,33 +16,90 @@ export const loginFun = createAsyncThunk(
         return data
     }
 )
+
+export const otpValidateFun = createAsyncThunk(
+    'otp/vendor',
+    async (bodydata) => {
+        const data = await postApiWithoutToken(`${initialState.development}/auth/login`, bodydata)
+        return data
+    }
+)
+
+export const logoutFun = createAsyncThunk(
+    'logout/vendor',
+    async (bodydata) => {
+        const data = await postApiWithoutToken(`${initialState.development}/auth/logout`, bodydata)
+        return data
+    }
+)
+
 const registerSlice = createSlice({
     name: 'login',
     initialState,
+    reducers: {},
     extraReducers: {
         [loginFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 message.success("OTP sent succesfully..!")
                 state.isLoading = false
-                state.error = ''
-                state.isLoading = false
             } if (payload.status == 500) {
-                message.error(payload?.message??'', + '! ', '  ' + payload?.message ??'',  + '!')
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
                 state.isLoading = false
-                state.error = payload?.error;
             } else {
-                message.error(payload.error??'', '!')
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
                 state.isLoading = false
-                state.error = payload?.error;
             }
         },
         [loginFun.pending]: (state, { payload }) => {
             state.isLoading = true
-            state.error = ''
+        },
+
+        // otp validate function
+        [otpValidateFun.fulfilled]: (state, { payload }) => {
+            if (payload.status == 200) {
+                console.log('state', state)
+                state.token = payload.token
+                state.user = payload?.data
+                message.success("Logged In succesfully..!")
+                return
+            } if (payload.status == 500) {
+                state.token = null
+                state.user = null
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
+            } else {
+                state.token = null
+                state.user = null
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
+            }
+        },
+        [otpValidateFun.pending]: (state, { payload }) => {
+            state.token = null
+            state.user = null
+        },
+
+        // logout
+        [logoutFun.fulfilled]: (state, { payload }) => {
+            if (payload.status == 200) {
+                console.log('state', state)
+                state.token = null
+                state.user = {}
+                message.success("Logout succesfully..!")
+                return
+            } if (payload.status == 500) {
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
+            } else {
+                payload.error && message.error(payload.error ?? '', '!')
+                payload.message && message.error(payload.message ?? '', '!')
+            }
+        },
+        [logoutFun.pending]: (state, { payload }) => {
         },
     }
 })
-
-export const { incrementStaper, decrementStaper, registerDetails, addBankDetails, addPickupLocation } = registerSlice.actions
 
 export default registerSlice.reducer

@@ -3,15 +3,17 @@ import { NavLink } from "react-router-dom";
 import { Layout, Menu } from "antd";
 // import SushiyaLogoDark from '../../img/sushiya_logo_dark.png'
 import styles from './Sidebar.module.css'
-import { AiOutlineAreaChart, AiFillSetting, AiFillCar } from "react-icons/ai";
+import { AiFillSetting, AiFillCar } from "react-icons/ai";
 import { FiMonitor } from "react-icons/fi";
 import { FaUsers, FaBell, FaFileCode, FaStarHalfAlt, FaMoneyBillAlt, FaShoppingCart } from "react-icons/fa";
-// 
+import { useSelector } from 'react-redux';
+
 
 import { Link } from "react-router-dom";
 const { Sider } = Layout;
 
 function SideBar() {
+  const { user } = useSelector(state => state.login)
   return (
     <>
 
@@ -21,7 +23,7 @@ function SideBar() {
         style={{
           overflow: "auto",
           height: "100vh",
-          width:'20vw',
+          width: '20vw',
           position: "fixed"
         }}
       >
@@ -37,42 +39,43 @@ function SideBar() {
           </NavLink>
         </div>
 
-        {/* <div className="logo mt-3 mb-4 " style={{ borderBottom: '2px solid #000' }}>
-          <NavLink className="sidebar-brand d-flex align-items-left justify-content-left" to="/dashbord">
-            <div className="sidebar-brand-text mx-5  "><h6 className="font-weight-bold">dashbord's Name </h6>
-            </div>
-          </NavLink>
-        </div> */}
+        <div className="sidebar-brand-text mx-5 text-center ">
+          <span className="font-weight-bold text-primary fs-5">{user?.first_name} {user?.last_name}</span>
+          <p className="text-secondary">Service Provider</p>
+        </div>
 
         <Menu mode="inline">
           <Menu.Item className={styles.paddingLeft} key="1" icon={<FiMonitor size={20} />}>
-            <Link to="/dashbord"> Dashboard </Link>
+            <NavLink className="text-secondary fs-6" to="/dashbord"> Dashboard </NavLink>
           </Menu.Item>
-          <Menu.Item className={styles.paddingLeft} key="2" icon={<FaUsers size={20} />}>
-            <Link to="/dashbord/product">Product Management </Link>
+          <Menu.Item className={styles.paddingLeft} key="2" icon={<FaShoppingCart size={20} />}>
+            <NavLink className="text-secondary fs-6" to="/dashbord/product">Product Management </NavLink>
           </Menu.Item>
-    
-          <Menu.Item className={styles.paddingLeft} key="4" icon={<AiFillCar size={20} />}>
-            <NavLink to="/dashbord/vahicle">Vehicle Management</NavLink>
+
+          <Menu.Item className={styles.paddingLeft} key="3" icon={<FaUsers size={20} />}>
+            <NavLink className="text-secondary fs-6" to="/dashbord/category">Category Management</NavLink>
           </Menu.Item>
-          <Menu.Item className={styles.paddingLeft} key="5" icon={<FaShoppingCart size={20} />}>
-            <NavLink to="/dashbord/booking">Booking Management</NavLink>
+          {/* <Menu.Item className={styles.paddingLeft} key="4" icon={<AiFillCar size={20} />}>
+            <NavLink className="text-secondary fs-6" to="/dashbord/vahicle">Vehicle Management</NavLink>
+          </Menu.Item>
+          <Menu.Item className={styles.paddingLeft} key="5" icon={<FaUsers size={20} />}>
+            <NavLink className="text-secondary fs-6" to="/dashbord/booking">Booking Management</NavLink>
           </Menu.Item>
           <Menu.Item className={styles.paddingLeft} key="6" icon={<FaMoneyBillAlt size={20} />}>
-            <NavLink to="/dashbord/Payment"> Payment Management </NavLink>
+            <NavLink className="text-secondary fs-6" to="/dashbord/Payment"> Payment Management </NavLink>
           </Menu.Item>
           <Menu.Item className={styles.paddingLeft} key="7" icon={<FaStarHalfAlt size={20} />}>
-            <NavLink to="/dashbord/rating">Rating & Review Management</NavLink>
+            <NavLink className="text-secondary fs-6" to="/dashbord/rating">Rating & Review Management</NavLink>
           </Menu.Item>
           <Menu.Item className={styles.paddingLeft} key="8" icon={<FaFileCode size={20} />}>
-            <NavLink to="/dashbord/report">Report Management</NavLink>
+            <NavLink className="text-secondary fs-6" to="/dashbord/report">Report Management</NavLink>
           </Menu.Item>
           <Menu.Item className={styles.paddingLeft} key="9" icon={<FaBell size={20} />}>
-            <NavLink to="/dashbord/notification">Notifications Management</NavLink>
+            <NavLink className="text-secondary fs-6" to="/dashbord/notification">Notifications Management</NavLink>
           </Menu.Item>
           <Menu.Item className={styles.paddingLeft} key="10" icon={<AiFillSetting size={20} />}>
-            <NavLink to="/dashbord/setting">Setting</NavLink>
-          </Menu.Item>
+            <NavLink className="text-secondary fs-6" to="/dashbord/setting">Setting</NavLink>
+          </Menu.Item> */}
         </Menu>
       </Sider>
     </>

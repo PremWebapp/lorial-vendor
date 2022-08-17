@@ -57,19 +57,18 @@ function ProductList() {
             key: 'action',
             render: (text, record) => (
                 <Space size="large">
-                    <i class="fa fa-motorcycle" aria-hidden="true"></i>
+                    <i className="fa fa-motorcycle" aria-hidden="true"></i>
 
                 </Space>
             ),
         },
     ];
 
-  return (
-    <div>
-                                                <Table dataSource="" columns={CompletedColumns} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['05', '10', '20', '30'] }} />
-
-    </div>
-  )
+    return (
+        <div className="pe-3">
+            <Table dataSource="" columns={CompletedColumns} pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['05', '10', '20', '30'] }} />
+        </div>
+    )
 }
 
 export default ProductList

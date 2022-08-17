@@ -36,44 +36,44 @@ function RegisterbankDetails() {
     },[])
 
     return (
-        <div>  <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
-            <div class="modal-content  border-0 ">
-                <div class="modal-body  p-0">
-                    <div class="row justify-content-center">
-                        <div class="col">
-                                <div class="row justify-content-center ">
-                                    <form class="col-sm-8 col px-sm-0 px-4" >
+        <div>  <div className="modal-dialog  modal-dialog-centered justify-content-center " role="document">
+            <div className="modal-content  border-0 ">
+                <div className="modal-body  p-0">
+                    <div className="row justify-content-center">
+                        <div className="col">
+                                <div className="row justify-content-center ">
+                                    <form className="col-sm-8 col px-sm-0 px-4" >
                                         <div>
                                             <p className={`${style.vendorCardLable}`}>Account Holder Name</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.acc_holder_name}  class={`${style.formcontrol} form-control`} type="text" name="acc_holder_name" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.acc_holder_name}  className={`${style.formcontrol} form-control`} type="text" name="acc_holder_name" required />
                                         </div>
                                         <div>
                                             <p className={`${style.vendorCardLable}`}>Account Number</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.acc_number}  class={`${style.formcontrol} form-control`} type="number" name="acc_number" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.acc_number}  className={`${style.formcontrol} form-control`} type="number" name="acc_number" required />
                                         </div>
                                         <div> <p className={`${style.vendorCardLable}`}>IFSC Code</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.IFSC_code}  class={`${style.formcontrol} form-control`} type="text" name="IFSC_code" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.IFSC_code}  className={`${style.formcontrol} form-control`} type="text" name="IFSC_code" required />
                                         </div>
                                         <div>
                                             <p className={`${style.vendorCardLable}`}>State</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.bank_state}  class={`${style.formcontrol} form-control`} type="text" name="bank_state" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.bank_state}  className={`${style.formcontrol} form-control`} type="text" name="bank_state" required />
                                         </div>
                                         <div>
                                             <p className={`${style.vendorCardLable}`}>City</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.bank_city} class={`${style.formcontrol} form-control`} type="text" name="bank_city" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.bank_city} className={`${style.formcontrol} form-control`} type="text" name="bank_city" required />
                                         </div>
                                         <div>
                                             <p className={`${style.vendorCardLable}`}>Pincode</p>
-                                            <input onChange={handleChange} defaultValue={bank_details?.bank_pincode}   class={`${style.formcontrol} form-control`} type="text" name="bank_pincode" required />
+                                            <input onChange={handleChange} defaultValue={bank_details?.bank_pincode}   className={`${style.formcontrol} form-control`} type="text" name="bank_pincode" required />
                                         </div>
 
                                         <div className="col d-flex  mt-4">
                                             <button onClick={handelBackSubmit}  className={`${style.authsubmitted} btn btn-primary  btn-block`} >
-                                                <i class="fa-solid fa-arrow-left-long pe-2"></i>Back
+                                                <i className="fa-solid fa-arrow-left-long pe-2"></i>Back
                                             </button>
                                             <div className='col d-flex justify-content-end'>
                                                 <button onClick={HandleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} >
-                                                    Next<i class="fa-solid fa-arrow-right-long ps-2"></i>
+                                                    Next<i className="fa-solid fa-arrow-right-long ps-2"></i>
                                                 </button>
                                             </div>
                                         </div>

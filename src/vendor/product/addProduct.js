@@ -1,78 +1,113 @@
 import React, { useState } from 'react'
 import style from '../vendorDashbord/helper/vendor.module.css'
-import { Upload } from 'antd';
+import { Upload, message } from 'antd';
 import ImgCrop from 'antd-img-crop';
+import { useSelector, useDispatch } from 'react-redux';
+import { addProductFun } from '../../redux/reducers/productReducer';
 
 function AddProduct() {
-    const [fileList, setFileList] = useState([
+    const [fileList, setFileList] = useState([]);
+    const [registerData, setRegisterData] = useState([]);
+    const [isRecomended, setisRecomended] = useState(true);
 
-    ]);
+    const dispatch = useDispatch();
+    const { verndorCategory } = useSelector(state => state.category)
+    const vendorData = useSelector(state => state.login)
+
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
 
     const onPreview = async (file) => {
         let src = file.url;
-
         if (!src) {
             src = await new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file.originFileObj);
-
                 reader.onload = () => resolve(reader.result);
             });
         }
-
         const image = new Image();
         image.src = src;
         const imgWindow = window.open(src);
         imgWindow?.document.write(image.outerHTML);
     };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setRegisterData({ ...registerData, [name]: value })
+    }
+console.log('fileList.length', fileList.length)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (fileList.length!==0) {
+            const formData = new FormData();
+            
+            formData.append('vendor_id', vendorData?.user?.vendor_id)
+            for (let [key, value] of Object.entries(registerData)) {
+                console.log(`${key}: ${value}`);
+                formData.append(key, value)
+            }
+
+            for (let j = 0; j < fileList.length; j++) {
+                formData.append('images', fileList[j].originFileObj)
+            }
+            formData.append('is_recomended', isRecomended)
+
+            dispatch(addProductFun({ data: formData, token: vendorData?.token }))
+            for (var key of formData.keys()) {
+                formData.delete(key)
+            }
+        }else message.error('Please select product image!')
+    }
 
     return (
         <>
             <div className={`${style.completedboxCard}`}>
                 <div className={`me-3 `}>
-                    <div className={`${style.completedboxBorder}`}>
+                    <form className={`${style.completedboxBorder}`} onSubmit={handleSubmit}>
                         <div className='row mx-2 pt-3'>
                             <div className={`${style.completedboxlable} col fw-bold`}>
-                                 Product Form
+                                Product Form
                             </div>
-
                             <div className="border border-secondary  mt-3"></div>
 
                         </div>
                         <div className="card-group p-3 gap-4">
                             <div className='container'>
-                                <div className='row  '>
+                                <div className='row ' >
                                     <div className='col-md-6 py-1' >
                                         <p className={`${style.vendorCardLable}`}>Product Name</p>
-                                        <div class="col-sm-10">
-                                            <input type="password" class=" form-control bg-light" id="inputPassword" />
+                                        <div className="col-sm-10">
+                                            <input onChange={handleInputChange} name='title' type="text" className=" form-control bg-light" required />
                                         </div>
                                     </div>
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Product Category</p>
-                                        <div class="col-sm-10">
-                                            <input type="password" class=" form-control bg-light" id="inputPassword" />
+                                        <div className="col-sm-10">
+                                            <select onChange={handleInputChange} name='category_id' className={`${style.divcontrol} form-control  shadow-none`} required >
+                                                <option value="">Select Provider type</option>
+                                                {verndorCategory?.map(item => {
+                                                    return <option value={item?.id} key={item?.id}>{item?.category_name}</option>
+                                                })}
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Additional Description</p>
-                                        <div class="col-sm-10">
-                                            <input type="password" class=" form-control bg-light" id="inputPassword" />
+                                        <div className="col-sm-10">
+                                            <input onChange={handleInputChange} name='description' type="text" className=" form-control bg-light" required />
                                         </div>
                                     </div>
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Product Price</p>
-                                        <div class="col-sm-10">
-                                            <input type="password" class=" form-control bg-light" id="inputPassword" />
+                                        <div className="col-sm-10">
+                                            <input onChange={handleInputChange} name='price' type="number" min='0' className=" form-control bg-light" required />
                                         </div>
                                     </div>
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Add Product Image (multiple)</p>
-                                        <div class="col-sm-10">
+                                        <div className="col-sm-10">
                                             <ImgCrop rotate>
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -86,15 +121,21 @@ function AddProduct() {
                                             </ImgCrop>
                                         </div>
                                     </div>
+                                    <div className='col-md-6 py-1'>
+                                        <p className={`${style.vendorCardLable}`}>Recommended</p>
+                                        <div className="col-sm-10">
+                                            <input onChange={(e) => setisRecomended(!isRecomended)} name='is_recomended' defaultChecked defaultValue={true} type="checkbox" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col d-flex justify-content-center">
-                            <button type="submit" class={`${style.authsubmitted} btn btn-primary  btn-block mb-4 `}>
+                        <div className="col d-flex justify-content-center">
+                            <button type="submit" className={`${style.authsubmitted} btn btn-primary  btn-block mb-4 `}>
                                 Submit
                             </button>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
 

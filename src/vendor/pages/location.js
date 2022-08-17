@@ -30,7 +30,7 @@ function VendorLocation() {
                                                             <input className={`${style.formcontrol} form-control`} type="text" name="password" placeholder="Enter Password" />
                                                         </div>
 
-                                                        <div class="row">
+                                                        <div className="row">
                                                             <div className="col">
                                                                 <p className={`${style.vendorCardLable}`}>City</p>
                                                                 <select className={`${style.formcontrol} form-control bg-light`} placeholder='dsdv' >

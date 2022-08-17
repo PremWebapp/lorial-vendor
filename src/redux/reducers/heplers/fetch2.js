@@ -1,36 +1,47 @@
-export const fetchGetItems =async (api, type) => {
+
+export const postApiWithoutToken = async (api, data) => {
+    const res = await fetch(api, {
+        method: 'post', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    const result = await res.json()
+    return result
+}
+
+export const getItems = async (api, token = '') => {
+    const res = await fetch(api, {
+        method: 'get', // or 'PUT'
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+    })
+    const result = await res.json()
+    return result
+}
+
+export const postItems = async (api, data, token = '') => {
+    const res = await fetch(api, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        body: JSON.stringify(data),
+    })
+    const result = await res.json()
+    return result
+}
+
+export const postWithImageItems = async (api, data = '', token = '', type = 'GET') => {
     const res = await fetch(api, {
         method: type, // or 'PUT'
         headers: {
-            'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify(data),
-    })
-    const result = await res.json()
-    return result
-}
-
-export const postApiWithoutToken =async (api, data) => {
-    const res = await fetch(api, {
-        method: 'post', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    const result = await res.json()
-    return result
-}
-
-export const postApi =async (api, data='', token='') => {
-    const res = await fetch(api, {
-        method: 'post', // or 'PUT'
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
-          },
-        body: JSON.stringify(data),
+        },
+        body: data,
     })
     const result = await res.json()
     return result

@@ -7,7 +7,7 @@ function Product() {
 
     return (
         <div className=" ">
-            <div className='d-flex justify-content-center py-4'>
+            <div className='d-flex justify-content-center py-3'>
                 <div>
                     <Button onClick={() => setButtonToggle('list')} size='large'>Product List</Button>
                 </div>

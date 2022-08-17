@@ -29,14 +29,10 @@ const registerSlice = createSlice({
     initialState,
     reducers: {
         incrementStaper: (state, { payload }) => {
-            if (state.staper > 0) {
-                state.staper++
-            }
+            if (state.staper > 0) state.staper++
         },
         decrementStaper: (state, { payload }) => {
-            if (state.staper < 4) {
-                state.staper--
-            }
+            if (state.staper < 4) state.staper--
         },
         registerDetails: (state, { payload }) => {
             state.first_name = payload.first_name;
@@ -54,7 +50,6 @@ const registerSlice = createSlice({
     },
     extraReducers: {
         [registrationFun.fulfilled]: (state, { payload }) => {
-            console.log(payload)
             if (payload.status == 200) {
                 message.success("Registartion succesfully..!")
                 state.isLoading = false
@@ -74,7 +69,7 @@ const registerSlice = createSlice({
                 state.isLoading = false
                 state.error = payload?.error;
             } else {
-                message.error(payload.message ,'!', payload.error)
+                message.error(payload.message, '!', payload.error)
                 state.isLoading = false
                 state.error = payload?.error;
             }

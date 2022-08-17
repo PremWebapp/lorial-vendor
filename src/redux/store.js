@@ -3,8 +3,10 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import cartReducer from "./reducers/cartReducer";
-import productReducer from "./reducers/productReducer";
 import registerReducer from "./reducers/registerReducer";
+import loginReducer from "./reducers/loginReducer";
+import categeoryReducer from "./reducers/categeoryReducer";
+import productReducer from "./reducers/productReducer";
 
 const persistConfig = {
   key: 'root',
@@ -13,9 +15,11 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   cart: cartReducer,
-  product: productReducer,
-  register: registerReducer
-  })
+  register: registerReducer,
+  login: loginReducer,
+  category: categeoryReducer,
+  product:productReducer
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

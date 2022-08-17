@@ -27,8 +27,8 @@ function VendorPasswordReset() {
                                                             <input className={`${style.formcontrol} form-control`} type="password" name="password" placeholder="Enter Password" />
                                                         </div>
 
-                                                        <div class="row mt-5"> <div class="col d-flex justify-content-center">
-                                                            <button type="button" class={`${style.authsubmitted} btn btn-primary  btn-block`}>
+                                                        <div className="row mt-5"> <div className="col d-flex justify-content-center">
+                                                            <button type="button" className={`${style.authsubmitted} btn btn-primary  btn-block`}>
                                                                 Change Password
                                                             </button>
                                                         </div>

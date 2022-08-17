@@ -1,44 +1,43 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchGetItems } from './heplers/fetch2';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { postWithImageItems } from './heplers/fetch2';
+import { message } from 'antd'
 
 const initialState = {
-    items: [],
-    filteredItems: [],
-    errors: '',
+    development: 'http://localhost:8000',
     isLoading: false,
+    productList: []
 }
-export const fetchProductItems = createAsyncThunk(
-    'product/fetchProductData',
-    async (thunkAPI) => {
-        const data = await fetchGetItems('https://fakestoreapi.com/products', 'get')
-        return data
+
+export const addProductFun = createAsyncThunk(
+    'product/vendor',
+    async ({ data, token }) => {
+        console.log('i am adding product ' + data)
+        const result = await postWithImageItems(`${initialState.development}/add-product`, data, token, 'post')
+        return result
     }
 )
 
-const productSlice = createSlice({
+const registerSlice = createSlice({
     name: 'product',
     initialState,
-    reducers: {
-        filterProductByRating: (state, { payload }) => {
-            if (payload.length) state.filteredItems = state.items.filter(val => val.rating.rate >= Math.min(...payload))
-            else state.filteredItems = state.items
-        },
-        filterProductByPrice: (state, { payload }) => {
-            const data = state.items.filter(val => (val.price <= payload[1]))
-            state.filteredItems = data
-        },
-    },
+    reducers: {},
     extraReducers: {
-        [fetchProductItems.pending]: (state, { payload }) => {
-            state.isLoading = true;
-            state.items = []
+        [addProductFun.fulfilled]: (state, { payload }) => {
+            if (payload.status == 200) {
+                message.success("Data submitted successfully..!")
+                state.isLoading = false
+            } if (payload.status == 500) {
+                payload.error && message.error(payload.error ?? '', '!')
+                state.isLoading = false
+            } else {
+                payload.error && message.error(payload.error ?? '', '!')
+                state.isLoading = false
+            }
         },
-        [fetchProductItems.fulfilled]: (state, { payload }) => {
-            state.items = payload
-            state.filteredItems = payload
-            state.isLoading = false;
+        [addProductFun.pending]: (state, { payload }) => {
+            state.isLoading = true
         },
     }
 })
-export const { filterProductByRating, filterProductByPrice } = productSlice.actions
-export default productSlice.reducer
+
+export default registerSlice.reducer
