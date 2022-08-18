@@ -134,3 +134,6 @@ code {
 #product-tab{
   column-gap: 0px !important;
 }
+.pointer{
+  cursor: pointer;
+}

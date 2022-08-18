@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { postWithImageItems } from './heplers/fetch2';
+import { deleteItems, getItems, postWithImageItems } from './heplers/fetch2';
 import { message } from 'antd'
 
 const initialState = {
@@ -9,10 +9,26 @@ const initialState = {
 }
 
 export const addProductFun = createAsyncThunk(
-    'product/vendor',
+    'add-product/vendor',
     async ({ data, token }) => {
-        console.log('i am adding product ' + data)
-        const result = await postWithImageItems(`${initialState.development}/add-product`, data, token, 'post')
+        const result = await postWithImageItems(`${initialState.development}/product`, data, token, 'post')
+        return result
+    }
+)
+
+export const getProductFun = createAsyncThunk(
+    'get-product/vendor',
+    async ({ data, token }) => {
+        console.log('i am..............')
+        const result = await getItems(`${initialState.development}/product?vendor_id=${data}`, token)
+        return result
+    }
+)
+
+export const removeProductFun = createAsyncThunk(
+    'remove-product/vendor',
+    async ({ data, token }) => {
+        const result = await deleteItems(`${initialState.development}/product?product_id=${data}`, token)
         return result
     }
 )
@@ -36,6 +52,18 @@ const registerSlice = createSlice({
         },
         [addProductFun.pending]: (state, { payload }) => {
             state.isLoading = true
+        },
+        // get product details
+        [getProductFun.fulfilled]: (state, { payload }) => {
+            if (payload.status == 200) {
+                state.productList = payload.data
+            } if (payload.status == 500) {
+                payload.error && message.error(payload.error ?? '', '!')
+            } else {
+                payload.error && message.error(payload.error ?? '', '!')
+            }
+        },
+        [getProductFun.pending]: (state, { payload }) => {
         },
     }
 })

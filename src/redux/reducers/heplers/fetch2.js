@@ -35,6 +35,19 @@ export const postItems = async (api, data, token = '') => {
     return result
 }
 
+export const deleteItems = async (api,token = '') => {
+    const res = await fetch(api, {
+        method: 'DELETE', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        // body: JSON.stringify(data),
+    })
+    const result = await res.json()
+    return result
+}
+
 export const postWithImageItems = async (api, data = '', token = '', type = 'GET') => {
     const res = await fetch(api, {
         method: type, // or 'PUT'

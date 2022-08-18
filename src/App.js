@@ -14,10 +14,8 @@ import { categoryFunById } from './redux/reducers/categeoryReducer';
 
 function App() {
   const vendorData = useSelector(state => state.login)
-  const {verndorCategory} = useSelector(state => state.category)
 
   let navigate = useNavigate();
-  const dispatch = useDispatch()
 
   useEffect(() => {
     if (vendorData?.token) navigate("/dashbord");
@@ -27,9 +25,6 @@ function App() {
     if (vendorData?.token) navigate("/dashbord");
   }, [vendorData?.token])
 
-  useEffect(() => {
-    if (verndorCategory?.length === 0) dispatch(categoryFunById({data:vendorData?.user?.vendor_id, token:vendorData?.token}))
-  }, [])
 
   return (
     <>

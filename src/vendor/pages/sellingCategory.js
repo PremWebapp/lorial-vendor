@@ -1,7 +1,7 @@
 import style from '../vendorDashbord/helper/vendor.module.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { categoryFun } from '../../redux/reducers/categeoryReducer';
+import { categoryFun, categoryFunById } from '../../redux/reducers/categeoryReducer';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, message, Upload } from 'antd';
 
@@ -13,7 +13,6 @@ function SellingCategory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
         const imageData = new FormData();
         imageData.append("category_img", categoryimage)
         imageData.append("category_name", categoryname)
@@ -29,9 +28,13 @@ function SellingCategory() {
             authorization: 'authorization-text',
         },
         onChange(info) {
-            if (info.file.status !== 'uploading')  setCategoryimage(info.file?.originFileObj)
+            if (info.file.status !== 'uploading') setCategoryimage(info.file?.originFileObj)
         },
     };
+
+    // useEffect(() => {
+    //     dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+    // }, [])
 
     return (
         <div className="px-4 pt-3">

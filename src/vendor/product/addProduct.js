@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from '../vendorDashbord/helper/vendor.module.css'
 import { Upload, message } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProductFun } from '../../redux/reducers/productReducer';
+import { categoryFunById } from '../../redux/reducers/categeoryReducer';
 
 function AddProduct() {
     const [fileList, setFileList] = useState([]);
@@ -13,7 +14,7 @@ function AddProduct() {
     const dispatch = useDispatch();
     const { verndorCategory } = useSelector(state => state.category)
     const vendorData = useSelector(state => state.login)
-
+console.log('verndorCategory', verndorCategory)
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
@@ -36,12 +37,12 @@ function AddProduct() {
         const { name, value } = e.target
         setRegisterData({ ...registerData, [name]: value })
     }
-console.log('fileList.length', fileList.length)
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (fileList.length!==0) {
+        if (fileList.length !== 0) {
             const formData = new FormData();
-            
+
             formData.append('vendor_id', vendorData?.user?.vendor_id)
             for (let [key, value] of Object.entries(registerData)) {
                 console.log(`${key}: ${value}`);
@@ -57,8 +58,11 @@ console.log('fileList.length', fileList.length)
             for (var key of formData.keys()) {
                 formData.delete(key)
             }
-        }else message.error('Please select product image!')
+        } else message.error('Please select product image!')
     }
+    useEffect(() => {
+        dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+    }, [])
 
     return (
         <>
