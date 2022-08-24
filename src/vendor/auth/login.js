@@ -7,6 +7,8 @@ import { message } from 'antd'
 
 function Login() {
     const [mobile, setMobile] = useState('')
+    const [disabled, setDisabled] = useState(true)
+    const [otpDisabled, setOTPDisabled] = useState(true)
     const [otp, setOtp] = useState('')
     const dispatch = useDispatch()
 
@@ -29,6 +31,15 @@ function Login() {
         const { name, value } = e.target
         setOtp({ ...otp, [name]: value })
     }
+    
+    useEffect(() => {
+        if (mobile.length === 10) setDisabled(false)
+        else setDisabled(true)
+
+        if (Object.values(otp).filter(val => val !== '').length === 4) setOTPDisabled(false)
+        else setOTPDisabled(true)
+
+    }, [mobile, otp])
     return (
         <>
             <div className="modal-dialog  modal-dialog-centered justify-content-center " role="document">
@@ -56,7 +67,7 @@ function Login() {
                                             </div>
                                             <div className="row">
                                                 <div className="col d-flex  justify-content-center">
-                                                    <button onClick={handleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} data-bs-toggle="modal" data-bs-target="#registerModel">
+                                                    <button disabled={disabled} onClick={handleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} data-bs-toggle="modal" data-bs-target="#registerModel">
                                                         Login
                                                     </button>
                                                     {/* <div className='col d-flex justify-content-end'>
@@ -102,7 +113,7 @@ function Login() {
                                 </div>
                             </div> */}
                             <div className='d-flex justify-content-center'>
-                                <button type="submit" onClick={handleOTPSubmit} data-bs-dismiss="modal" aria-label="Close" className={`${style.authsubmitted} btn btn-primary  btn-block text-center mt-4`}>
+                                <button disabled={otpDisabled} type="submit" onClick={handleOTPSubmit} data-bs-dismiss="modal" aria-label="Close" className={`${style.authsubmitted} btn btn-primary  btn-block text-center mt-4`}>
                                     Submit
                                 </button>
                             </div>

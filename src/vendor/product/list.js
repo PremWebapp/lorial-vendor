@@ -3,6 +3,7 @@ import { Table, Space } from 'antd'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductFun, removeProductFun } from '../../redux/reducers/productReducer';
+import htmlPerse from 'html-react-parser'
 
 function ProductList() {
     const vendorData = useSelector(state => state.login)
@@ -12,7 +13,10 @@ function ProductList() {
 
     const handleDelete = (id) => {
         dispatch(removeProductFun({ data: id, token: vendorData?.token }))
-        dispatch(getProductFun({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+
+        setTimeout(() => {
+            dispatch(getProductFun({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+        }, "1000")
     }
     const CompletedColumns = [
         {
@@ -20,8 +24,14 @@ function ProductList() {
             dataIndex: 'category_img',
             key: 'category_img',
             render: (text, record) => (
-                <span>{(record.category_img ? <span> <img alt='Menu_image' src='images/vendorCategoryImage/category_img-1660807529759-72283329-download.png' style={{ width: "30px", height: "30px", borderRadius: "25px" }} /> </span> : '')}</span>
+                <span>{(record.category_img ? <span> <img alt='Menu_image' src={record?.category_img} style={{ width: "30px", height: "30px", borderRadius: "25px" }} /> </span> : '')}</span>
             )
+        },
+        {
+            title: 'Category Name',
+            dataIndex: 'category_name',
+            key: 'category_name',
+
         },
         {
             title: 'Title',
@@ -32,6 +42,9 @@ function ProductList() {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
+            render: (text, record) => (
+                <span>{(record.description ? <span>{htmlPerse(record.description)} </span> : '')}</span>
+            )
         },
         {
             title: 'Price',
@@ -62,8 +75,8 @@ function ProductList() {
             key: 'action',
             render: (text, record) => (
                 <span>
-                    <Link to="/Admin/vahicle-view">
-                        <i className="fa fa-eye p-2  rounded-circle " style={{ color: 'white', backgroundColor: '#1b6bcc' }} id={record.id} ></i>
+                    <Link to='/dashbord/product/details' state={{ id: record.product_id }} >
+                        <i className="fa fa-eye p-2  rounded-circle " style={{ color: 'white', backgroundColor: '#1b6bcc' }} id={record.product_id} ></i>
                     </Link>
                     <span className="p-2  rounded-circle "></span><i className="fa fa-trash p-2  rounded-circle pointer" style={{ color: 'red', backgroundColor: '#1b6bcc' }} onClick={() => handleDelete(record.product_id)} id={record.product_id} ></i></span>
             )
@@ -73,7 +86,6 @@ function ProductList() {
     useEffect(() => {
         dispatch(getProductFun({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
     }, [])
-
 
     return (
         <div className="pe-3">

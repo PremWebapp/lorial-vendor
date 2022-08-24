@@ -10,7 +10,6 @@ import VendorFooter from './vendor/vendorDashbord/helper/footer';
 import VendorRoute from './route/vendorRoute';
 import PrivateRoute from './helper/privateRoute';
 import { useSelector, useDispatch } from 'react-redux';
-import { categoryFunById } from './redux/reducers/categeoryReducer';
 
 function App() {
   const vendorData = useSelector(state => state.login)
@@ -25,7 +24,6 @@ function App() {
     if (vendorData?.token) navigate("/dashbord");
   }, [vendorData?.token])
 
-
   return (
     <>
       <VendorHeader />
@@ -38,7 +36,7 @@ function App() {
           </Route>
         </Routes>
       </div>
-      <VendorFooter />
+      {/* <VendorFooter /> */}
     </>
   );
 }

@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { postApiWithoutToken } from './heplers/fetch2';
 import { message } from 'antd'
 
+
 const initialState = {
     development: 'http://localhost:8000',
-    isLoading: false,
     user: {},
     token: null,
 }
@@ -40,35 +40,23 @@ const registerSlice = createSlice({
     extraReducers: {
         [loginFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
-                message.success("OTP sent succesfully..!")
-                state.isLoading = false
-            } if (payload.status == 500) {
-                payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
-                state.isLoading = false
             } else {
                 payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
-                state.isLoading = false
             }
         },
         [loginFun.pending]: (state, { payload }) => {
-            state.isLoading = true
         },
-
+        [loginFun.rejected]: (state, { payload }) => {
+            console.log('server error')
+            message.error('Some error occurred in server side!')
+        },
         // otp validate function
         [otpValidateFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
-                console.log('state', state)
                 state.token = payload.token
                 state.user = payload?.data
                 message.success("Logged In succesfully..!")
                 return
-            } if (payload.status == 500) {
-                state.token = null
-                state.user = null
-                payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
             } else {
                 state.token = null
                 state.user = null
@@ -80,24 +68,26 @@ const registerSlice = createSlice({
             state.token = null
             state.user = null
         },
+        [otpValidateFun.rejected]: (state, { payload }) => {
+            state.token = null
+            state.user = null
+            message.error('Some error occurred in server side!')
+        },
 
         // logout
         [logoutFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
-                console.log('state', state)
                 state.token = null
                 state.user = {}
                 message.success("Logout succesfully..!")
                 return
-            } if (payload.status == 500) {
-                payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
             } else {
                 payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
             }
         },
         [logoutFun.pending]: (state, { payload }) => {
+            state.token = null
+            state.user = {}
         },
     }
 })

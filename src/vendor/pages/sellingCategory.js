@@ -13,12 +13,16 @@ function SellingCategory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const imageData = new FormData();
-        imageData.append("category_img", categoryimage)
-        imageData.append("category_name", categoryname)
-        imageData.append("vendor_id", vendorData?.user?.vendor_id)
-
-        dispatch(categoryFun({ data: imageData, token: vendorData?.token }))
+        try {
+            const imageData = new FormData();
+            imageData.append("category_img", categoryimage)
+            imageData.append("category_name", categoryname)
+            imageData.append("vendor_id", vendorData?.user?.vendor_id)
+            dispatch(categoryFun({ data: imageData, token: vendorData?.token }))
+        }
+        catch (err) {
+            console.log('error.............')
+         }
     }
 
     const props = {
@@ -32,9 +36,9 @@ function SellingCategory() {
         },
     };
 
-    // useEffect(() => {
-    //     dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
-    // }, [])
+    useEffect(() => {
+        dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+    }, [])
 
     return (
         <div className="px-4 pt-3">

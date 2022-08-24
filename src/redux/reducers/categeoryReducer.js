@@ -7,7 +7,6 @@ const initialState = {
     verndorCategory: []
 }
 
-
 export const categoryFun = createAsyncThunk(
     'category/vendor',
     async ({ data, token }) => {
@@ -18,7 +17,7 @@ export const categoryFun = createAsyncThunk(
 
 export const categoryFunById = createAsyncThunk(
     'categoryById/vendor',
-    async ({ data,token }) => {
+    async ({ data, token }) => {
         const result = await getItems(`${initialState.development}/category?vendor_id=${data}`, token)
         return result
     }
@@ -32,8 +31,6 @@ const registerSlice = createSlice({
         [categoryFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 message.success("Data submitted successfully..!")
-            } if (payload.status == 500) {
-                payload.error && message.error(payload.error ?? '', '!')
             } else {
                 payload.error && message.error(payload.error ?? '', '!')
             }
@@ -43,16 +40,14 @@ const registerSlice = createSlice({
         [categoryFunById.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 state.verndorCategory = payload.data
-            } if (payload.status == 500) {
-                payload.error && message.error(payload.error ?? '', '!')
             } else {
                 payload.error && message.error(payload.error ?? '', '!')
             }
         },
         [categoryFunById.pending]: (state, { payload }) => {
+            state.verndorCategory=[]
         },
     }
 })
-
 
 export default registerSlice.reducer

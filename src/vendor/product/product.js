@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from 'antd';
-import AddProduct from './addProduct'
 import ProductList from './list';
+import AddProduct from './addProduct';
+
 function Product() {
     const [buttonToggle, setButtonToggle] = useState('list')
 

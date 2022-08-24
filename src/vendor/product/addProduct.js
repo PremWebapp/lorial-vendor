@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import style from '../vendorDashbord/helper/vendor.module.css'
-import { Upload, message } from 'antd';
+import { Upload, message, Spin } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProductFun } from '../../redux/reducers/productReducer';
 import { categoryFunById } from '../../redux/reducers/categeoryReducer';
+import JoditEditer from 'jodit-react'
 
 function AddProduct() {
+    const editer = useRef(null)
     const [fileList, setFileList] = useState([]);
     const [registerData, setRegisterData] = useState([]);
     const [isRecomended, setisRecomended] = useState(true);
+    const [ description, setDescription] = useState('')
 
     const dispatch = useDispatch();
+    const { isLoading } = useSelector(state => state.product)
     const { verndorCategory } = useSelector(state => state.category)
     const vendorData = useSelector(state => state.login)
-console.log('verndorCategory', verndorCategory)
+
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
@@ -35,6 +39,7 @@ console.log('verndorCategory', verndorCategory)
     };
     const handleInputChange = (e) => {
         const { name, value } = e.target
+        console.log('first',name, value )
         setRegisterData({ ...registerData, [name]: value })
     }
 
@@ -53,6 +58,7 @@ console.log('verndorCategory', verndorCategory)
                 formData.append('images', fileList[j].originFileObj)
             }
             formData.append('is_recomended', isRecomended)
+            formData.append('description', description)
 
             dispatch(addProductFun({ data: formData, token: vendorData?.token }))
             for (var key of formData.keys()) {
@@ -74,8 +80,8 @@ console.log('verndorCategory', verndorCategory)
                                 Product Form
                             </div>
                             <div className="border border-secondary  mt-3"></div>
-
                         </div>
+                        {description}
                         <div className="card-group p-3 gap-4">
                             <div className='container'>
                                 <div className='row ' >
@@ -97,44 +103,50 @@ console.log('verndorCategory', verndorCategory)
                                         </div>
                                     </div>
 
-                                    <div className='col-md-6 py-1'>
-                                        <p className={`${style.vendorCardLable}`}>Additional Description</p>
-                                        <div className="col-sm-10">
-                                            <input onChange={handleInputChange} name='description' type="text" className=" form-control bg-light" required />
-                                        </div>
-                                    </div>
+
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Product Price</p>
                                         <div className="col-sm-10">
                                             <input onChange={handleInputChange} name='price' type="number" min='0' className=" form-control bg-light" required />
                                         </div>
                                     </div>
-                                    <div className='col-md-6 py-1'>
-                                        <p className={`${style.vendorCardLable}`}>Add Product Image (multiple)</p>
-                                        <div className="col-sm-10">
-                                            <ImgCrop rotate>
-                                                <Upload
-                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                    listType="picture-card"
-                                                    fileList={fileList}
-                                                    onChange={onChange}
-                                                    onPreview={onPreview}
-                                                >
-                                                    {fileList.length < 5 && '+ Upload'}
-                                                </Upload>
-                                            </ImgCrop>
-                                        </div>
-                                    </div>
+
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Recommended</p>
                                         <div className="col-sm-10">
                                             <input onChange={(e) => setisRecomended(!isRecomended)} name='is_recomended' defaultChecked defaultValue={true} type="checkbox" />
                                         </div>
                                     </div>
+                                    <div className='col-md-6 py-1'>
+                                        <p className={`${style.vendorCardLable}`}>Add Product Image (multiple)</p>
+                                        <div className="col-sm-10">
+                                            {/* <ImgCrop rotate> */}
+                                            <Upload
+                                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                listType="picture-card"
+                                                fileList={fileList}
+                                                onChange={onChange}
+                                                onPreview={onPreview}
+                                            >
+                                                {fileList.length < 10 && '+ Upload'}
+                                            </Upload>
+                                            {/* </ImgCrop> */}
+                                        </div>
+                                    </div>
+                                    <div className='col-md-6 py-1'>
+                                        <p className={`${style.vendorCardLable}`}>Additional Description</p>
+                                        <div className="col-sm-10">
+                                            <JoditEditer name="description" ref={editer} onChange={(contant)=>setDescription(contant)} />
+                                            {/* <input onChange={handleInputChange} name='description' type="text" className=" form-control bg-light" required /> */}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col d-flex justify-content-center">
+                            {/* {isLoading ? <Spin size="large" /> : <button type="submit" className={`${style.authsubmitted} btn btn-primary  btn-block mb-4 `}>
+                                Submit
+                            </button>} */}
                             <button type="submit" className={`${style.authsubmitted} btn btn-primary  btn-block mb-4 `}>
                                 Submit
                             </button>

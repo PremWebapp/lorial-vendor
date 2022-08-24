@@ -131,9 +131,17 @@ code {
   border-bottom-right-radius: 10px;
 
 }
-#product-tab{
+
+#product-tab {
   column-gap: 0px !important;
 }
-.pointer{
+
+.pointer {
   cursor: pointer;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  font-size: 23px !important;
+  color: #254ee5 !important;
 }
