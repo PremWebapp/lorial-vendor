@@ -40,14 +40,11 @@ const registerSlice = createSlice({
     extraReducers: {
         [loginFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
-            } else {
-                payload.error && message.error(payload.error ?? '', '!')
-            }
+            } else  message.error(payload.error )
         },
         [loginFun.pending]: (state, { payload }) => {
         },
         [loginFun.rejected]: (state, { payload }) => {
-            console.log('server error')
             message.error('Some error occurred in server side!')
         },
         // otp validate function
@@ -60,8 +57,7 @@ const registerSlice = createSlice({
             } else {
                 state.token = null
                 state.user = null
-                payload.error && message.error(payload.error ?? '', '!')
-                payload.message && message.error(payload.message ?? '', '!')
+                 message.error(payload.error )
             }
         },
         [otpValidateFun.pending]: (state, { payload }) => {
@@ -82,7 +78,7 @@ const registerSlice = createSlice({
                 message.success("Logout succesfully..!")
                 return
             } else {
-                payload.error && message.error(payload.error ?? '', '!')
+                 message.error(payload.error )
             }
         },
         [logoutFun.pending]: (state, { payload }) => {

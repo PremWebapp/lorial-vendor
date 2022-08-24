@@ -45,7 +45,7 @@ function AddProduct() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (fileList.length !== 0) {
+        if (fileList.length !== 0 && description?.length !==0) {
             const formData = new FormData();
 
             formData.append('vendor_id', vendorData?.user?.vendor_id)
@@ -64,7 +64,7 @@ function AddProduct() {
             for (var key of formData.keys()) {
                 formData.delete(key)
             }
-        } else message.error('Please select product image!')
+        } else message.error('Please select product image Or Description!')
     }
     useEffect(() => {
         dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
@@ -81,7 +81,6 @@ function AddProduct() {
                             </div>
                             <div className="border border-secondary  mt-3"></div>
                         </div>
-                        {description}
                         <div className="card-group p-3 gap-4">
                             <div className='container'>
                                 <div className='row ' >

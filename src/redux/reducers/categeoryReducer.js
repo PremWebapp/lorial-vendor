@@ -23,31 +23,25 @@ export const categoryFunById = createAsyncThunk(
     }
 )
 
-const registerSlice = createSlice({
+const categorySlice = createSlice({
     name: 'category',
     initialState,
     reducers: {},
     extraReducers: {
         [categoryFun.fulfilled]: (state, { payload }) => {
-            if (payload.status == 200) {
-                message.success("Data submitted successfully..!")
-            } else {
-                payload.error && message.error(payload.error ?? '', '!')
-            }
+            if (payload.status == 200) message.success("Data submitted successfully..!")
+            else message.error(payload.error)
         },
         [categoryFun.pending]: (state, { payload }) => {
         },
         [categoryFunById.fulfilled]: (state, { payload }) => {
-            if (payload.status == 200) {
-                state.verndorCategory = payload.data
-            } else {
-                payload.error && message.error(payload.error ?? '', '!')
-            }
+            if (payload.status == 200) state.verndorCategory = payload.data
+            else message.error(payload.error)
         },
         [categoryFunById.pending]: (state, { payload }) => {
-            state.verndorCategory=[]
+            state.verndorCategory = []
         },
     }
 })
 
-export default registerSlice.reducer
+export default categorySlice.reducer

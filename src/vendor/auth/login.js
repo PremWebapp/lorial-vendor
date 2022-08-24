@@ -52,7 +52,7 @@ function Login() {
                                         <div className="col-sm-8 col ">
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Mobile Number</p>
-                                                <input onChange={(e) => setMobile(e.target.value)} value={mobile} className={`${style.formcontrol} form-control `} type="number" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
+                                                <input onChange={(e) => setMobile(e.target.value?.replace(/\D/g, ""))} value={mobile} className={`${style.formcontrol} form-control `} maxLength={10} type="text" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
                                             </div>
 
                                             <div className="row align-items-center mt-4 mb-5">
