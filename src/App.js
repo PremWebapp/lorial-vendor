@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Routes, Route, useNavigate } from "react-router-dom";
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
+import 'react-toastify/dist/ReactToastify.css';
 import Vendorauth from './vendor/auth/auth';
 import VendorPasswordReset from './vendor/auth/resetPassword';
 import VendorHeader from './vendor/vendorDashbord/helper/vendorHeader';
 import style from './vendor/vendorDashbord/helper/vendor.module.css'
-import VendorFooter from './vendor/vendorDashbord/helper/footer';
+// import VendorFooter from './vendor/vendorDashbord/helper/footer';
 import VendorRoute from './route/vendorRoute';
 import PrivateRoute from './helper/privateRoute';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function App() {
   const vendorData = useSelector(state => state.login)
@@ -18,6 +20,7 @@ function App() {
 
   useEffect(() => {
     if (vendorData?.token) navigate("/dashbord");
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

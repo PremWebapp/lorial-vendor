@@ -46,8 +46,11 @@ const registerSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        [addProductFun.rejected]: (state, { payload }) => {
+            state.isLoading = false
+            message.error('Some error occurred in server side!')
+        },
         [addProductFun.fulfilled]: (state, { payload }) => {
-            console.log('i am fulfilled')
             if (payload.status == 200) {
                 message.success("Data submitted successfully..!")
                 state.isLoading = false
@@ -60,11 +63,12 @@ const registerSlice = createSlice({
             console.log('i am pending', state.isLoading)
             state.isLoading = true
         },
-        [addProductFun.rejected]: (state, { payload }) => {
-            state.isLoading = false
+
+        // get product details
+        [getProductFun.rejected]: (state, { payload }) => {
+            state.productList = []
             message.error('Some error occurred in server side!')
         },
-        // get product details
         [getProductFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 state.productList = payload.data
@@ -74,6 +78,10 @@ const registerSlice = createSlice({
             state.productList = []
         },
 
+        [getProductByIDFun.rejected]: (state, { payload }) => {
+            state.productLisByID = []
+            message.error('Some error occurred in server side!')
+        },
         [getProductByIDFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 state.productLisByID = payload.data

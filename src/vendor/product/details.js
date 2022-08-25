@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Slider from "react-slick";
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from "react";
@@ -25,6 +25,7 @@ function ProductDetails() {
         setNav2(slider2.current);
 
         dispatch(getProductByIDFun({ data: id, token: vendorData?.token }))
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -37,7 +38,7 @@ function ProductDetails() {
                         {productLisByID?.imgPath?.map(img => {
                             return (
                                 <div className='w-100 '>
-                                    <img className='w-100 p-1' style={{ objectFit: 'cover', height: '27rem'  }} src={img?.vendor_product_img} />
+                                    <img alt='img?.vendor_product_img' className='w-100 p-1' style={{ objectFit: 'cover', height: '27rem'  }} src={img?.vendor_product_img} />
                                 </div>
                             )
                         })}
@@ -55,7 +56,7 @@ function ProductDetails() {
                         {productLisByID?.imgPath?.map(img => {
                             return (
                                 <div>
-                                    <img className='w-100 p-1 ' style={{ objectFit: 'cover', height: '9rem'  }} src={img?.vendor_product_img} />
+                                    <img alt='img?.vendor_product_img' className='w-100 p-1 ' style={{ objectFit: 'cover', height: '9rem'  }} src={img?.vendor_product_img} />
                                 </div>
                             )
                         })}

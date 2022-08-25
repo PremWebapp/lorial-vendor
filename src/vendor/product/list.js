@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Table, Space } from 'antd'
+import { Table } from 'antd'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductFun, removeProductFun } from '../../redux/reducers/productReducer';
@@ -68,7 +68,7 @@ function ProductList() {
             title: 'Permitted',
             dataIndex: 'isPermitted',
             key: 'isPermitted',
-            render: text => <span>{text == 0 ? 'No' : 'Yes'}</span>,
+            render: text => <span>{text === '0' ? 'No' : 'Yes'}</span>,
         },
         {
             title: 'Action',
@@ -85,6 +85,7 @@ function ProductList() {
 
     useEffect(() => {
         dispatch(getProductFun({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+   // eslint-disable-next-line
     }, [])
 
     return (

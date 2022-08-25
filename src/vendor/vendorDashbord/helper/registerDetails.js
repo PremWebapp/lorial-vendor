@@ -1,12 +1,11 @@
 import style from './vendor.module.css'
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import { incrementStaper, registerDetails } from '../../../redux/reducers/registerReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
 function RegisterDetails() {
-    const formData= useSelector(state => state.register)
-
+    const formData = useSelector(state => state.register)
     const [registerData, setRegisterData] = useState({});
     const dispatch = useDispatch()
 
@@ -19,8 +18,8 @@ function RegisterDetails() {
             dispatch(incrementStaper())
         }
     }
-    useEffect(()=>{
-        if(formData.first_name && formData.last_name && formData.mobile && formData.email && formData.password){
+    useEffect(() => {
+        if (formData.first_name && formData.last_name && formData.mobile && formData.email && formData.password) {
             setRegisterData({
                 first_name: formData.first_name,
                 last_name: formData.last_name,
@@ -29,7 +28,20 @@ function RegisterDetails() {
                 password: formData.password
             })
         }
-    },[])
+    }, [formData])
+
+    useEffect(() => {
+        if (formData.first_name && formData.last_name && formData.mobile && formData.email && formData.password) {
+            setRegisterData({
+                first_name: formData.first_name,
+                last_name: formData.last_name,
+                mobile: formData.mobile,
+                email: formData.email,
+                password: formData.password
+            })
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -37,6 +49,7 @@ function RegisterDetails() {
     }
     return (
         <div>
+           
             <div className="modal-dialog  modal-dialog-centered justify-content-center " role="document">
                 <div className="modal-content  border-0 ">
                     <div className="modal-body  p-0">
@@ -60,7 +73,7 @@ function RegisterDetails() {
 
                                             <div>
                                                 <p className={`${style.vendorCardLable}`}>Email</p>
-                                                <input onChange={handleChange} defaultValue={formData?.email} className={`${style.formcontrol} form-control`} name='email' type="text" required />
+                                                <input onChange={handleChange} defaultValue={formData?.email} className={`${style.formcontrol} form-control`} name='email' type="email" required />
                                             </div>
 
                                             <div>

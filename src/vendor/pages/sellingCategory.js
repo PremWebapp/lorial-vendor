@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryFun, categoryFunById } from '../../redux/reducers/categeoryReducer';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, message, Upload } from 'antd';
+import { Button, Upload } from 'antd';
 
 function SellingCategory() {
     const dispatch = useDispatch()
@@ -38,6 +38,7 @@ function SellingCategory() {
 
     useEffect(() => {
         dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+    // eslint-disable-next-line
     }, [])
 
     return (

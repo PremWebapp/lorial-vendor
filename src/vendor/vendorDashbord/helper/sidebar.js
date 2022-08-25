@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Layout, Menu } from "antd";
 // import SushiyaLogoDark from '../../img/sushiya_logo_dark.png'
 import styles from './Sidebar.module.css'
-import { AiFillSetting, AiFillCar } from "react-icons/ai";
+// import { AiFillSetting, AiFillCar } from "react-icons/ai";
 import { FiMonitor } from "react-icons/fi";
 import { FaUsers, FaBell, FaFileCode, FaStarHalfAlt, FaMoneyBillAlt, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from 'react-redux';

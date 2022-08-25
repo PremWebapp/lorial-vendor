@@ -38,16 +38,23 @@ const registerSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        [loginFun.rejected]: (state, { payload }) => {
+            message.error('Some error occurred in server side!')
+        },
+
         [loginFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
             } else  message.error(payload.error )
         },
         [loginFun.pending]: (state, { payload }) => {
         },
-        [loginFun.rejected]: (state, { payload }) => {
+        
+        // otp validate function
+        [otpValidateFun.rejected]: (state, { payload }) => {
+            state.token = null
+            state.user = null
             message.error('Some error occurred in server side!')
         },
-        // otp validate function
         [otpValidateFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 state.token = payload.token
@@ -64,11 +71,7 @@ const registerSlice = createSlice({
             state.token = null
             state.user = null
         },
-        [otpValidateFun.rejected]: (state, { payload }) => {
-            state.token = null
-            state.user = null
-            message.error('Some error occurred in server side!')
-        },
+        
 
         // logout
         [logoutFun.fulfilled]: (state, { payload }) => {

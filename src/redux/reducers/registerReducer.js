@@ -12,8 +12,7 @@ const initialState = {
     bank_details: {},
     pickup_location: {},
     development: 'http://localhost:8000',
-    isLoading: false,
-    error: '',
+    loading: false,
 }
 
 export const registrationFun = createAsyncThunk(
@@ -49,10 +48,14 @@ const registerSlice = createSlice({
         },
     },
     extraReducers: {
+        [registrationFun.rejected]: (state, { payload }) => {
+            state.loading = false
+            message.error('Some error occurred in server side!')
+        },
         [registrationFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) {
                 message.success("Registartion succesfully..!")
-                state.isLoading = false
+                state.loading = false
                 state.error = ''
                 state.staper = 1
                 state.first_name = ''
@@ -62,21 +65,14 @@ const registerSlice = createSlice({
                 state.password = ''
                 state.bank_details = {}
                 state.pickup_location = {}
-                state.isLoading = false
-                state.error = ''
-            } if (payload.status == 500) {
-                message.error(payload?.message + '!')
-                state.isLoading = false
-                state.error = payload?.error;
+                state.loading = false
             } else {
-                message.error(payload.message, '!', payload.error)
-                state.isLoading = false
-                state.error = payload?.error;
+                state.loading = false
+                message.error(payload.error)
             }
         },
         [registrationFun.pending]: (state, { payload }) => {
-            state.isLoading = true
-            state.error = ''
+            state.loading = true
         },
     }
 })

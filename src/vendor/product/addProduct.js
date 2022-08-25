@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import style from '../vendorDashbord/helper/vendor.module.css'
 import { Upload, message, Spin } from 'antd';
-import ImgCrop from 'antd-img-crop';
+// import ImgCrop from 'antd-img-crop';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProductFun } from '../../redux/reducers/productReducer';
 import { categoryFunById } from '../../redux/reducers/categeoryReducer';
@@ -68,6 +68,7 @@ function AddProduct() {
     }
     useEffect(() => {
         dispatch(categoryFunById({ data: vendorData?.user?.vendor_id, token: vendorData?.token }))
+   // eslint-disable-next-line
     }, [])
 
     return (
@@ -93,7 +94,7 @@ function AddProduct() {
                                     <div className='col-md-6 py-1'>
                                         <p className={`${style.vendorCardLable}`}>Product Category</p>
                                         <div className="col-sm-10">
-                                            <select onChange={handleInputChange} name='category_id' className={`${style.divcontrol} form-control  shadow-none`} required >
+                                            <select onChange={handleInputChange} name='category_id' className={`${style.divcontrol} form-control  shadow-none`}  required >
                                                 <option value="">Select Provider type</option>
                                                 {verndorCategory?.map(item => {
                                                     return <option value={item?.id} key={item?.id}>{item?.category_name}</option>
@@ -147,7 +148,7 @@ function AddProduct() {
                                 Submit
                             </button>} */}
                             <button type="submit" className={`${style.authsubmitted} btn btn-primary  btn-block mb-4 `}>
-                                Submit
+                            {isLoading ? <Spin /> :  'Submit'}
                             </button>
                         </div>
                     </form>

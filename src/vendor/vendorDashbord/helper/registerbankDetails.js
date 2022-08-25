@@ -30,10 +30,12 @@ function RegisterbankDetails() {
         dispatch(decrementStaper())
     }
     useEffect(()=>{
-        if(bank_details){
-            setbankData(bank_details)
-        }
+        if(bank_details)  setbankData(bank_details)
+        // eslint-disable-next-line
     },[])
+    useEffect(()=>{
+        if(bank_details)  setbankData(bank_details)
+    },[bank_details])
 
     return (
         <div>  <div className="modal-dialog  modal-dialog-centered justify-content-center " role="document">

@@ -17,7 +17,7 @@ function Product() {
                 </div>
             </div>
             <div className="pb-4">
-                {buttonToggle == 'add' ? <AddProduct /> : <ProductList />}
+                {buttonToggle === 'add' ? <AddProduct /> : <ProductList />}
 
             </div>
         </div>

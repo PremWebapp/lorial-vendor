@@ -28,11 +28,19 @@ const categorySlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        [categoryFun.rejected]: (state, { payload }) => {
+            message.error('Some error occurred in server side!')
+        },
         [categoryFun.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) message.success("Data submitted successfully..!")
             else message.error(payload.error)
         },
         [categoryFun.pending]: (state, { payload }) => {
+        },
+
+        
+        [categoryFunById.rejected]: (state, { payload }) => {
+            message.error('Some error occurred in server side!')
         },
         [categoryFunById.fulfilled]: (state, { payload }) => {
             if (payload.status == 200) state.verndorCategory = payload.data

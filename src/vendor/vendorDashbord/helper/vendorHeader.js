@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import style from './vendor.module.css'
 import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ function VendorHeader() {
   return (
     <nav className={`navbar navbar-light bg-dark fixed-top ${style.vendorHeader}`}>
       <div className={`d-flex container ${style.vendorHeaderdiv}`}>
-        <a className="navbar-brand text-white fw-bold">Vendor Admin</a>
+        <span href='' className="navbar-brand text-white fw-bold">Vendor Admin</span>
         <div className="d-flex">
           <span className='me-4 m-auto text-white'>Account status</span>{vendorData?.user?.mobile ?
             <button onClick={showModal} className={`btn  border-white text-white px-4 ${style.buttonHeader}`} >Logout</button> :

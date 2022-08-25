@@ -31,9 +31,8 @@ function RegisterPickuplocation() {
         dispatch(decrementStaper())
     }
     useEffect(()=>{
-        if(pickup_location){
-            setPickupDetails(pickup_location)
-        }
+        if(pickup_location)  setPickupDetails(pickup_location)
+        // eslint-disable-next-line
     },[])
     return (
         <div>
@@ -67,7 +66,7 @@ function RegisterPickuplocation() {
                                                 </button>
                                                 <div className='col d-flex justify-content-end'>
                                                     <button onClick={HandleSubmit} className={`${style.authsubmitted} btn btn-primary  btn-block`} >
-                                                      {totalData.isLoading ? <Spin /> :  'Submit'}
+                                                      {totalData.loading ? <Spin /> :  'Submit'}
                                                     </button>
                                                 </div>
                                             </div>
