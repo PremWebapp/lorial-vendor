@@ -18,7 +18,7 @@ const initialState = {
 export const registrationFun = createAsyncThunk(
     'register/vendor',
     async (bodydata) => {
-        const data = await postApiWithoutToken(`${initialState.development}/auth/register`, bodydata)
+        const data = await postApiWithoutToken(`${initialState.development}/vendor/auth/register`, bodydata)
         return data
     }
 )

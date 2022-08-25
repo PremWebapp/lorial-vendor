@@ -12,7 +12,7 @@ const initialState = {
 export const loginFun = createAsyncThunk(
     'login/vendor',
     async (bodydata) => {
-        const data = await postApiWithoutToken(`${initialState.development}/auth`, bodydata)
+        const data = await postApiWithoutToken(`${initialState.development}/vendor/auth`, bodydata)
         return data
     }
 )
@@ -20,7 +20,7 @@ export const loginFun = createAsyncThunk(
 export const otpValidateFun = createAsyncThunk(
     'otp/vendor',
     async (bodydata) => {
-        const data = await postApiWithoutToken(`${initialState.development}/auth/login`, bodydata)
+        const data = await postApiWithoutToken(`${initialState.development}/vendor/auth/login`, bodydata)
         return data
     }
 )
@@ -28,7 +28,7 @@ export const otpValidateFun = createAsyncThunk(
 export const logoutFun = createAsyncThunk(
     'logout/vendor',
     async (bodydata) => {
-        const data = await postApiWithoutToken(`${initialState.development}/auth/logout`, bodydata)
+        const data = await postApiWithoutToken(`${initialState.development}/vendor/auth/logout`, bodydata)
         return data
     }
 )

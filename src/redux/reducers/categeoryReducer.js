@@ -10,7 +10,7 @@ const initialState = {
 export const categoryFun = createAsyncThunk(
     'category/vendor',
     async ({ data, token }) => {
-        const result = await postWithImageItems(`${initialState.development}/category`, data, token, 'post')
+        const result = await postWithImageItems(`${initialState.development}/vendor/category`, data, token, 'post')
         return result
     }
 )
@@ -18,7 +18,7 @@ export const categoryFun = createAsyncThunk(
 export const categoryFunById = createAsyncThunk(
     'categoryById/vendor',
     async ({ data, token }) => {
-        const result = await getItems(`${initialState.development}/category?vendor_id=${data}`, token)
+        const result = await getItems(`${initialState.development}/vendor/category?vendor_id=${data}`, token)
         return result
     }
 )
@@ -38,7 +38,7 @@ const categorySlice = createSlice({
         [categoryFun.pending]: (state, { payload }) => {
         },
 
-        
+
         [categoryFunById.rejected]: (state, { payload }) => {
             message.error('Some error occurred in server side!')
         },

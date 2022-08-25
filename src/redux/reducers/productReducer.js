@@ -12,7 +12,7 @@ const initialState = {
 export const addProductFun = createAsyncThunk(
     'add-product/vendor',
     async ({ data, token }) => {
-        const result = await postWithImageItems(`${initialState.development}/product`, data, token, 'post')
+        const result = await postWithImageItems(`${initialState.development}/vendor/product`, data, token, 'post')
         return result
     }
 )
@@ -20,7 +20,7 @@ export const addProductFun = createAsyncThunk(
 export const getProductFun = createAsyncThunk(
     'get-product/vendor',
     async ({ data, token }) => {
-        const result = await getItems(`${initialState.development}/product?vendor_id=${data}`, token)
+        const result = await getItems(`${initialState.development}/vendor/product?vendor_id=${data}`, token)
         return result
     }
 )
@@ -28,7 +28,7 @@ export const getProductFun = createAsyncThunk(
 export const removeProductFun = createAsyncThunk(
     'remove-product/vendor',
     async ({ data, token }) => {
-        const result = await deleteItems(`${initialState.development}/product?product_id=${data}`, token)
+        const result = await deleteItems(`${initialState.development}/vendor/product?product_id=${data}`, token)
         return result
     }
 )
@@ -36,7 +36,7 @@ export const removeProductFun = createAsyncThunk(
 export const getProductByIDFun = createAsyncThunk(
     'byid-product/vendor',
     async ({ data, token }) => {
-        const result = await getItems(`${initialState.development}/product/details?product_id=${data}`, token)
+        const result = await getItems(`${initialState.development}/vendor/product/details?product_id=${data}`, token)
         return result
     }
 )
