@@ -3,7 +3,6 @@ import './App.css';
 import { Routes, Route, useNavigate } from "react-router-dom";
 // import 'antd/dist/antd.css';
 import 'antd/dist/antd.min.css'
-import 'react-toastify/dist/ReactToastify.css';
 import Vendorauth from './vendor/auth/auth';
 import VendorPasswordReset from './vendor/auth/resetPassword';
 import VendorHeader from './vendor/vendorDashbord/helper/vendorHeader';
